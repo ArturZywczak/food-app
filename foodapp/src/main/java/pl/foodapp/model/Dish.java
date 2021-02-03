@@ -18,7 +18,7 @@ public class Dish {
     @Column(name = "description", length = 400, nullable = false)
     private String description;
     @NotNull
-    @Column(name = "price", nullable = false)
+    @Column(name = "pricesss", nullable = false)
     private double price;
     @ManyToMany(mappedBy = "dishes")
     private List<Customer> customers;
