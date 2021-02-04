@@ -14,11 +14,12 @@ public class Dish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
-    @Column(name = "description", length = 400, nullable = false)
-    private String description;
-    @NotNull
-    @Column(name = "prices", nullable = false)
+    private Long id;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "ingredients", length = 400, nullable = false)
+    private String ingredients;
+    @Column(name = "price", nullable = false)
     private double price;
     @ManyToMany(mappedBy = "dishes")
     private List<Customer> customers;
@@ -26,20 +27,34 @@ public class Dish {
     public Dish() {
     }
 
-    public int getId() {
+    public Dish(String description, double price, String name) {
+        this.ingredients = description;
+        this.price = price;
+        this.name = name;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 
     public double getPrice() {
@@ -58,11 +73,6 @@ public class Dish {
         this.customers = customers;
     }
 
-    public Dish(String description, double price) {
-        this.description = description;
-        this.price = price;
-    }
-
     public void addCustomer(Customer customer) {
         if (customers == null) {
             customers = new ArrayList<>();
@@ -71,26 +81,14 @@ public class Dish {
         }
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Dish dish = (Dish) o;
-        return id == dish.id && Double.compare(dish.price, price) == 0 && Objects.equals(description, dish.description) && Objects.equals(customers, dish.customers);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, description, price, customers);
-    }
-
-    @Override
-    public String toString() {
-        return "Dish{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", customers=" + customers +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Dish{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", ingredients='" + ingredients + '\'' +
+//                ", price=" + price +
+//                ", customers=" + customers +
+//                '}';
+//    }
 }

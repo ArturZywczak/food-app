@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+czil bomba zamowileś
+<p th:text="${dish.name}"></p>
+
+wróć do poprzedniej strony i zamów coś jeszcze
+<a th:href="@{/}">wróc</a>
+</body>
+</html>

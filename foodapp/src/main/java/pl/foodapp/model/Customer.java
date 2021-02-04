@@ -19,7 +19,7 @@ public class Customer {
     private String lastName;
     @Column(name = "address", nullable = false)
     private String address;
-    @Column(name = "phone_number", nullable = true)
+    @Column(name = "phone_number")
     private String phoneNumber;
     @ManyToMany()
     @JoinTable(name = "customer_order", joinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id")},
@@ -103,15 +103,15 @@ public class Customer {
         return Objects.hash(id, firstName, lastName, address, phoneNumber, dishes);
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", dishes=" + dishes +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Customer{" +
+//                "id=" + id +
+//                ", firstName='" + firstName + '\'' +
+//                ", lastName='" + lastName + '\'' +
+//                ", address='" + address + '\'' +
+//                ", phoneNumber='" + phoneNumber + '\'' +
+//                ", dishes=" + dishes +
+//                '}';
+//    }
 }

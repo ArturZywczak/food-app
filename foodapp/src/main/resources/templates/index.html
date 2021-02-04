@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <p th:text="${welcome}" >siema!</p>
+  <ul th:each="dish : ${dishes}">
+       <li th:text="${dish.name + ' ' + dish.ingredients + ' ' + dish.price}"></li>
+       <a th:href="@{/order/add(dishId=${dish.id})}">Zamów</a>
+  </ul>
+
+   <a th:href="@{/order}">To wszystko? Więc zamów na swój adres!</a>
+</body>
+</html>
