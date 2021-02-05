@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+panel zarządzania zamówieniami
+ Zamówienia:
+<ul th:each="customer : ${orders}">
+    <li th:if="${customer.dishes.size() > 0}" th:text="${customer.getFirstName() + ' ' + customer.getLastName()}"> </li>
+        <a th:if="${customer.dishes.size() > 0}" th:href="@{/panel/client/{customerId}(customerId=${customer.id})}">Przejdź do szczegółów zamówienia</a>
+</ul>
+
+
+</body>
+</html>

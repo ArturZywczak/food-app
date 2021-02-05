@@ -1,11 +1,10 @@
 package pl.foodapp.model;
 
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
+import pl.foodapp.CustomerStatus;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @SessionScope
@@ -32,9 +31,11 @@ public class Order {
     private void createCustomer() {
        customer = new Customer();
        customer.setDishes(new ArrayList<>());
-
     }
-
+    public void removeOrder() {
+        customer = new Customer();
+        customer.setDishes(new ArrayList<>());
+    }
     @Override
     public String toString() {
         return "Order{" +

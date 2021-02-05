@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ Dane osoby zamawiającej:
+ Imię:
+ <p th:text="${customer.firstName}"></p>
+ Nazwisko:
+ <p th:text="${customer.lastName}"></p>
+ Telefon komjurkowy:
+ <p th:text="${customer.phoneNumber}"></p>
+ Adres:
+ <p th:text="${customer.address}"></p>
+ Zamówienie klienta:
+ <ul th:each="dish : ${customer.dishes}">
+     <li th:text="${dish.name}"></li>
+     <li th:text="${dish.price}"></li>
+ </ul>
+ <p>Do zapłaty</p>
+  <p th:text="${dishesPrice}"></p>
+  <a th:href="@{/panel/serviced}">Obsłuż!</a>
+
+</body>
+</html>

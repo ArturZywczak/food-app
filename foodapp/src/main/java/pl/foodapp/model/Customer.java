@@ -1,5 +1,7 @@
 package pl.foodapp.model;
 
+import pl.foodapp.CustomerStatus;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,9 @@ public class Customer {
     private String address;
     @Column(name = "phone_number")
     private String phoneNumber;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private CustomerStatus customerStatus;
     @ManyToMany()
     @JoinTable(name = "customer_order", joinColumns = {@JoinColumn(name = "customer_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "dish_id", referencedColumnName = "id")})
@@ -76,6 +81,14 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
+    public CustomerStatus getCustomerStatus() {
+        return customerStatus;
+    }
+
+    public void setCustomerStatus(CustomerStatus customerStatus) {
+        this.customerStatus = customerStatus;
+    }
+
     public List<Dish> getDishes() {
         return dishes;
     }
@@ -90,28 +103,15 @@ public class Customer {
             dishes.add(dish);
         }
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(address, customer.address) && Objects.equals(phoneNumber, customer.phoneNumber) && Objects.equals(dishes, customer.dishes);
-    }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, phoneNumber, dishes);
+    public String toString() {
+        return "Customer{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", customerStatus=" + customerStatus +
+                '}';
     }
-
-//    @Override
-//    public String toString() {
-//        return "Customer{" +
-//                "id=" + id +
-//                ", firstName='" + firstName + '\'' +
-//                ", lastName='" + lastName + '\'' +
-//                ", address='" + address + '\'' +
-//                ", phoneNumber='" + phoneNumber + '\'' +
-//                ", dishes=" + dishes +
-//                '}';
-//    }
 }

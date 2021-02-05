@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.foodapp.CustomerStatus;
 import pl.foodapp.model.Calc;
 import pl.foodapp.model.Customer;
 import pl.foodapp.model.Dish;
@@ -37,7 +38,6 @@ public class OrderController {
         model.addAttribute("allDishes", order.getCustomer().getDishes());
         model.addAttribute("price", price);
         model.addAttribute("customer", new Customer());
-
         return "orderSummary";
     }
 
@@ -50,7 +50,6 @@ public class OrderController {
             return "orderError";
         } else {
             order.addDish(dish);
-            System.out.println(order.toString());
             model.addAttribute("dish", dish);
             return "orderSuccess";
         }
@@ -60,9 +59,9 @@ public class OrderController {
     public String realize(@ModelAttribute Customer customer){
         List<Dish> dishes = order.getCustomer().getDishes();
         customer.setDishes(dishes);
-        System.out.println(customer);
+        customer.setCustomerStatus(CustomerStatus.NEW);
         customerRepository.save(customer);
-
+        order.removeOrder();
         return "realize";
     }
 
