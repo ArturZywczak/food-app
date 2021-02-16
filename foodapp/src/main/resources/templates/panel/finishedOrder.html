@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+     <p th:if="${customer.customerStatus.toString().equals('SERVICED')}" th:text="${'Gratulacje! Obsłuzyles!' + ' ' + customer.getFirstName() + ' ' + customer.getLastName()}"> </p>
+
+     <p th:unless="${customer.customerStatus.toString().equals('SERVICED')}" th:text="${'Przywróciłeś do statusu zamówienia NOWE klienta' + ' ' + customer.getFirstName() + ' ' + customer.getLastName()}"> </p>
+
+
+
+
+ <a th:href="@{/panel}">Wróć do panelu! Klient obsłuzony!</a>
+</body>
+</html>

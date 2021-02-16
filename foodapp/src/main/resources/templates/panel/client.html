@@ -21,7 +21,7 @@
  </ul>
  <p>Do zapłaty</p>
   <p th:text="${dishesPrice}"></p>
-  <a th:href="@{/panel/serviced}">Obsłuż!</a>
+  <a th:href= "@{/panel/serviced/{customerId}(customerId=${customer.id})}" th:text="${customer.customerStatus.toString().equals('NEW') ? 'Obsłuż'  :'Wróć do poprzedniego statusu' }"></a>
 
 </body>
 </html>

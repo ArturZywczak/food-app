@@ -6,11 +6,19 @@
 </head>
 <body>
 panel zarządzania zamówieniami
- Zamówienia:
+<p>zamówienia</p>
+<p>nowe</p>:
 <ul th:each="customer : ${orders}">
-    <li th:if="${customer.dishes.size() > 0}" th:text="${customer.getFirstName() + ' ' + customer.getLastName()}"> </li>
-        <a th:if="${customer.dishes.size() > 0}" th:href="@{/panel/client/{customerId}(customerId=${customer.id})}">Przejdź do szczegółów zamówienia</a>
+    <li th:if="${customer.customerStatus.toString().equals('NEW')}" th:text="${customer.getFirstName() + ' ' + customer.getLastName()}"> </li>
+        <a th:if="${customer.customerStatus.toString().equals('NEW')}" th:href="@{/panel/client/{customerId}(customerId=${customer.id})}">Przejdź do szczegółów zamówienia</a>
 </ul>
+<p>obsluzeni klienci</p>
+<ul th:each="customer : ${orders}">
+    <li th:if="${customer.customerStatus.toString().equals('SERVICED')}" th:text="${customer.getFirstName() + ' ' + customer.getLastName()}"> </li>
+    <a th:if="${customer.customerStatus.toString().equals('SERVICED')}" th:href="@{/panel/client/{customerId}(customerId=${customer.id})}">Przejdź do szczegółów zamówienia</a>
+</ul>
+
+
 
 
 </body>
