@@ -1,6 +1,6 @@
 package pl.foodapp.controller;
 
-import org.aspectj.weaver.ast.Or;
+import org.apache.logging.log4j.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.foodapp.CustomerStatus;
-import pl.foodapp.model.Calc;
+import pl.foodapp.logic.Calc;
 import pl.foodapp.model.Customer;
 import pl.foodapp.model.Dish;
 import pl.foodapp.model.Order;
+import pl.foodapp.model.OrderInfo;
 import pl.foodapp.repository.CustomerRepository;
 import pl.foodapp.repository.DishRepository;
 
@@ -24,16 +26,18 @@ public class OrderController {
     private DishRepository dishRepository;
     private CustomerRepository customerRepository;
     private Order order;
+    private OrderInfo orderInfo;
 
     @Autowired
-    public OrderController(DishRepository dishRepository, CustomerRepository customerRepository, Order order) {
+    public OrderController(DishRepository dishRepository, CustomerRepository customerRepository, Order order, OrderInfo orderInfo) {
         this.dishRepository = dishRepository;
         this.order = order;
         this.customerRepository = customerRepository;
+        this.orderInfo = orderInfo;
     }
 
     @GetMapping("/order")
-    public String order(Model model){
+    public String order(Model model) {
         double price = Calc.addAll(order.getCustomer().getDishes());
         model.addAttribute("allDishes", order.getCustomer().getDishes());
         model.addAttribute("price", price);
@@ -56,14 +60,22 @@ public class OrderController {
     }
 
     @PostMapping("/order/realize")
-    public String realize(@ModelAttribute Customer customer){
+    public String realize(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes) {
         List<Dish> dishes = order.getCustomer().getDishes();
         customer.setDishes(dishes);
         customer.setCustomerStatus(CustomerStatus.NEW);
         customerRepository.save(customer);
+        redirectAttributes.addAttribute("customerId", customer.getId());
         order.removeOrder();
-        return "realize";
+        return "redirect:done";
     }
 
+    @PostMapping("/order/done")
+    public String realizeDone(@ModelAttribute(name = "customerId") Long id, Model model) {
+        Customer customerById = customerRepository.getOne(id);
+        model.addAttribute("orderMessage", orderInfo);
+        model.addAttribute("customerById", customerById);
+        return "realize";
+    }
 
 }

@@ -1,14 +1,14 @@
 package pl.foodapp.controller;
 
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import pl.foodapp.CustomerStatus;
-import pl.foodapp.model.Calc;
+import pl.foodapp.logic.Calc;
 import pl.foodapp.model.Customer;
 import pl.foodapp.repository.CustomerRepository;
 
@@ -36,21 +36,16 @@ public class PanelController {
     @GetMapping("/panel/client/{customerId}")
     public String clientManager(@PathVariable("customerId") Long customerId, Model model){
         customer = customerRepository.getOne(customerId);
-        CustomerStatus customerStatus = customer.getCustomerStatus();
         double price = Calc.addAll(customer.getDishes());
         model.addAttribute("customer", customer);
         model.addAttribute("dishesPrice", price);
+        model.addAttribute("customerStatus", CustomerStatus.values());
         return "/panel/client";
     }
 
     @GetMapping("/panel/serviced/{customerId}")
-    public String serviceCustomer(@PathVariable("customerId") Long customerId, Model model){
-        boolean isEqualsNew = customer.getCustomerStatus().toString().equals(customerStatusNew);
-        if(isEqualsNew){
-            customer.setCustomerStatus(CustomerStatus.SERVICED);
-        }else {
-            customer.setCustomerStatus(CustomerStatus.NEW);
-        }
+    public String serviceCustomer(@PathVariable("customerId") Long customerId, Model model, @ModelAttribute(name = "status") CustomerStatus customerStatus){
+        customer.setCustomerStatus(customerStatus);
         customerRepository.save(customer);
         model.addAttribute("customer", customer);
         return "/panel/finishedOrder";

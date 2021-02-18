@@ -10,6 +10,4 @@ import pl.foodapp.model.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-
-
 }

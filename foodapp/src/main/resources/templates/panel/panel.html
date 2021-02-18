@@ -7,12 +7,17 @@
 <body>
 panel zarządzania zamówieniami
 <p>zamówienia</p>
-<p>nowe</p>:
+<p>nowe zamówienia!</p>:
 <ul th:each="customer : ${orders}">
     <li th:if="${customer.customerStatus.toString().equals('NEW')}" th:text="${customer.getFirstName() + ' ' + customer.getLastName()}"> </li>
         <a th:if="${customer.customerStatus.toString().equals('NEW')}" th:href="@{/panel/client/{customerId}(customerId=${customer.id})}">Przejdź do szczegółów zamówienia</a>
 </ul>
-<p>obsluzeni klienci</p>
+<p>zamówienia w trakcie przyjęcia</p>
+<ul th:each="customer : ${orders}">
+    <li th:if="${customer.customerStatus.toString().equals('DURING_THE_ORDER')}" th:text="${customer.getFirstName() + ' ' + customer.getLastName()}"> </li>
+    <a th:if="${customer.customerStatus.toString().equals('DURING_THE_ORDER')}" th:href="@{/panel/client/{customerId}(customerId=${customer.id})}">Przejdź do szczegółów zamówienia</a>
+</ul>
+<p>zamówienia wysłane</p>
 <ul th:each="customer : ${orders}">
     <li th:if="${customer.customerStatus.toString().equals('SERVICED')}" th:text="${customer.getFirstName() + ' ' + customer.getLastName()}"> </li>
     <a th:if="${customer.customerStatus.toString().equals('SERVICED')}" th:href="@{/panel/client/{customerId}(customerId=${customer.id})}">Przejdź do szczegółów zamówienia</a>

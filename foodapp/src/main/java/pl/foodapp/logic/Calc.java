@@ -1,6 +1,7 @@
-package pl.foodapp.model;
+package pl.foodapp.logic;
 
 import org.springframework.stereotype.Component;
+import pl.foodapp.model.Dish;
 
 import java.util.List;
 

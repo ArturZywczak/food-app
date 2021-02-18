@@ -81,14 +81,7 @@ public class Dish {
         }
     }
 
-//    @Override
-//    public String toString() {
-//        return "Dish{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", ingredients='" + ingredients + '\'' +
-//                ", price=" + price +
-//                ", customers=" + customers +
-//                '}';
-//    }
+    public String printDish(){
+        return this.name;
+    }
 }

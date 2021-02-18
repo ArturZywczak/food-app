@@ -5,23 +5,28 @@
     <title>Title</title>
 </head>
 <body>
- Dane osoby zamawiającej:
- Imię:
- <p th:text="${customer.firstName}"></p>
- Nazwisko:
- <p th:text="${customer.lastName}"></p>
- Telefon komjurkowy:
- <p th:text="${customer.phoneNumber}"></p>
- Adres:
- <p th:text="${customer.address}"></p>
- Zamówienie klienta:
- <ul th:each="dish : ${customer.dishes}">
-     <li th:text="${dish.name}"></li>
-     <li th:text="${dish.price}"></li>
- </ul>
- <p>Do zapłaty</p>
-  <p th:text="${dishesPrice}"></p>
-  <a th:href= "@{/panel/serviced/{customerId}(customerId=${customer.id})}" th:text="${customer.customerStatus.toString().equals('NEW') ? 'Obsłuż'  :'Wróć do poprzedniego statusu' }"></a>
+Dane osoby zamawiającej:
+Imię:
+<p th:text="${customer.firstName}"></p>
+Nazwisko:
+<p th:text="${customer.lastName}"></p>
+Telefon komjurkowy:
+<p th:text="${customer.phoneNumber}"></p>
+Adres:
+<p th:text="${customer.address}"></p>
+Zamówienie klienta:
+<ul th:each="dish : ${customer.dishes}">
+    <li th:text="${dish.name}"></li>
+    <li th:text="${dish.price}"></li>
+</ul>
+<p>Do zapłaty</p>
+<p th:text="${dishesPrice}"></p>
+<form th:action="@{/panel/serviced/{customerId}(customerId=${customer.id})}">
+<select name="status">
+    <option th:each="option : ${customerStatus}" th:value="${option}" th:text="${option}"></option>
+</select>
+    <button>Ustaw status</button>
+</form>
 
 </body>
 </html>

@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-super zamowiles se haha
+super zamowiles:
+<ul th:each="dish : ${customerById.dishes}">
+    <li th:text="${dish.printDish()}"></li>
+</ul>
+stan twojego zamówienia:
+<p th:if="${customerById.customerStatus.toString().equals('NEW')}"
+   th:text="${orderMessage.getOrderInformation().get(0)}"></p>
+<p th:if="${customerById.customerStatus.toString().equals('DURING_THE_ORDER')}"
+   th:text="${orderMessage.getOrderInformation().get(1)}"></p>
+<p th:if="${customerById.customerStatus.toString().equals('SERVICED')}"
+   th:text="${orderMessage.getOrderInformation().get(2)}"></p>
+
 </body>
 </html>
